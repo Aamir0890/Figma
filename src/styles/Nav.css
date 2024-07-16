@@ -1,0 +1,145 @@
+.Nav {
+    width: 184px;
+    border: 1px solid rgb(224, 221, 221);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 97vh;
+}
+
+.header {
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    margin-top: 10%;
+}
+
+.options {
+    margin-top: 30%;
+}
+
+.loads {
+    gap: 10px;
+    background-color: #00005C;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    height: 40px;
+    padding: 0 10px;
+}
+
+.loads h3 {
+    color: white;
+    font-family: Nunito, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.15px;
+    text-align: left;
+    transition: font-size 0.3s ease;
+}
+
+.loads-white {
+    background-color: white;
+}
+
+.loads svg {
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+    transition: all 0.3s ease;
+}
+
+.brandName {
+    margin-top: 5%;
+    font-weight: bold;
+    font-size: larger;
+    transition: font-size 0.3s ease;
+}
+
+.down {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.options {
+    flex-grow: 1;
+}
+
+.down > div:last-child {
+    margin-top: auto;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 1200px) {
+    .Nav {
+        width: 160px;
+    }
+    .loads h3 {
+        font-size: 16px;
+    }
+    .brandName {
+        font-size: large;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .Nav {
+        width: 140px;
+    }
+    .loads h3 {
+        font-size: 14px;
+    }
+    .brandName {
+        font-size: medium;
+    }
+    .loads svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .Nav {
+        width: 120px;
+        height: auto;
+    }
+    .loads h3 {
+        font-size: 12px;
+    }
+    .brandName {
+        font-size: small;
+    }
+    .loads svg {
+        width: 14px;
+        height: 14px;
+    }
+    .down {
+        flex-direction: column;
+    }
+    .options {
+        flex-grow: 0;
+    }
+    .down > div:last-child {
+        margin-top: 20px;
+        position: static;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .Nav {
+        width: 100px;
+    }
+    .loads h3 {
+        font-size: 10px;
+    }
+    .brandName {
+        font-size: x-small;
+    }
+    .loads svg {
+        width: 12px;
+        height: 12px;
+    }
+}

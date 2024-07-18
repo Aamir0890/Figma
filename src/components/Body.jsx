@@ -1,7 +1,8 @@
-import React,{useState,useEffect} from 'react'
-import NameCard from './NameCard'
-import '../styles/body.css'
-import Table from './Table'
+import React, { useState, useEffect } from 'react';
+import NameCard from './NameCard';
+import '../styles/body.css';
+import Table from './Table';
+
 const companiesData = [
   {
     name: 'Company A',
@@ -101,14 +102,17 @@ const companiesData = [
     ]
   }
 ];
+
 function Body() {
-  
-  const [selectedCompany, setSelectedCompany] = useState(companiesData[0]);
-  const [selectedAccount, setSelectedAccount] = useState(selectedCompany.accounts[0]);
-  const [, forceUpdate] = useState();
+  const [selectedCompany, setSelectedCompany] = useState(null);
+  const [selectedAccount, setSelectedAccount] = useState(null);
 
   useEffect(() => {
-    setSelectedAccount(selectedCompany.accounts[0]);
+    if (selectedCompany) {
+      setSelectedAccount(selectedCompany.accounts[0]);
+    } else {
+      setSelectedAccount(null);
+    }
   }, [selectedCompany]);
 
   const handleCompanyChange = (name) => {
@@ -119,33 +123,19 @@ function Body() {
     }
   };
 
-
-   const span=()=>{
-    return(
-      <svg width="36" height="26" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M3.08415 2.16667C3.08415 0.97005 4.0542 0 5.25081 0H31.2508C32.4474 0 33.4175 0.97005 33.4175 2.16667L3.08415 2.16667Z" fill="#FE914D"/>
-      <path d="M18.2508 19.5C20.6441 19.5 22.5842 17.5599 22.5842 15.1667C22.5842 12.7734 20.6441 10.8333 18.2508 10.8333C15.8576 10.8333 13.9175 12.7734 13.9175 15.1667C13.9175 17.5599 15.8576 19.5 18.2508 19.5Z" fill="#FE914D"/>
-      <path d="M0.91748 6.5C0.91748 5.30338 1.88753 4.33333 3.08415 4.33333H33.4175C34.6141 4.33333 35.5842 5.30338 35.5842 6.5V23.8333C35.5842 25.0299 34.6141 26 33.4175 26H3.08415C1.88753 26 0.91748 25.03 0.91748 23.8333V6.5ZM7.41748 6.5C7.41748 8.89323 5.47738 10.8333 3.08415 10.8333V19.5C5.47738 19.5 7.41748 21.4401 7.41748 23.8333H29.0842C29.0842 21.4401 31.0243 19.5 33.4175 19.5V10.8333C31.0243 10.8333 29.0842 8.89323 29.0842 6.5H7.41748Z" fill="#FE914D"/>
-      </svg>
-      
-
-    )
-   }
-  
-   useEffect(() => {
-    if (selectedCompany) {
-      console.log("Selected company changed:", selectedCompany.name);
-      const firstAccount = selectedCompany.accounts[0];
-      setSelectedAccount(firstAccount);
-      console.log("Automatically selected first account:", firstAccount.name);
-    }
-  }, [selectedCompany]);
-  
   const handleAccountChange = (name) => {
     const account = selectedCompany.accounts.find(a => a.name === name);
-    console.log("Selected account changed:", account.name);
     setSelectedAccount(account);
-    forceUpdate({}); // Force a re-render
+  };
+
+  const span = () => {
+    return (
+      <svg width="36" height="26" viewBox="0 0 36 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.08415 2.16667C3.08415 0.97005 4.0542 0 5.25081 0H31.2508C32.4474 0 33.4175 0.97005 33.4175 2.16667L3.08415 2.16667Z" fill="#FE914D"/>
+        <path d="M18.2508 19.5C20.6441 19.5 22.5842 17.5599 22.5842 15.1667C22.5842 12.7734 20.6441 10.8333 18.2508 10.8333C15.8576 10.8333 13.9175 12.7734 13.9175 15.1667C13.9175 17.5599 15.8576 19.5 18.2508 19.5Z" fill="#FE914D"/>
+        <path d="M0.91748 6.5C0.91748 5.30338 1.88753 4.33333 3.08415 4.33333H33.4175C34.6141 4.33333 35.5842 5.30338 35.5842 6.5V23.8333C35.5842 25.0299 34.6141 26 33.4175 26H3.08415C1.88753 26 0.91748 25.03 0.91748 23.8333V6.5ZM7.41748 6.5C7.41748 8.89323 5.47738 10.8333 3.08415 10.8333V19.5C5.47738 19.5 7.41748 21.4401 7.41748 23.8333H29.0842C29.0842 21.4401 31.0243 19.5 33.4175 19.5V10.8333C31.0243 10.8333 29.0842 8.89323 29.0842 6.5H7.41748Z" fill="#FE914D"/>
+      </svg>
+    );
   };
 
   return (
@@ -157,28 +147,32 @@ function Body() {
           name2={companiesData[1].name} 
           onSelect={handleCompanyChange}
         />
-        <NameCard
-  name={selectedCompany ? selectedAccount.name : "Select Account"}
-  name1={selectedCompany ? selectedCompany.accounts[0].name : ""}
-  name2={selectedCompany ? selectedCompany.accounts[1].name : ""}
-  onSelect={handleAccountChange}
-  
-/>
+        {selectedCompany && (
+          <NameCard
+            name={selectedAccount ? selectedAccount.name : "Select Account"}
+            name1={selectedCompany.accounts[0].name}
+            name2={selectedCompany.accounts[1].name}
+            onSelect={handleAccountChange}
+          />
+        )}
       </div>
       <div className="card">
         {span()}
         <div className='Accnt'>
           <h2 style={{color:'#00005C',marginTop:'10px'}}>Available Balance</h2>
-          <h2 style={{color:'#219653',marginBottom:'20px',fontWeight:400}}>₹{selectedAccount.balance}</h2>
+          {selectedAccount && (
+            <h2 style={{color:'#219653',marginBottom:'20px',fontWeight:400}}>₹{selectedAccount.balance}</h2>
+          )}
         </div>
       </div>
       <div style={{marginTop:'40px',marginBottom:'20px'}}>
         Latest loads are displayed here
       </div>
-      <Table data={selectedAccount.data}/>
+      {selectedAccount && (
+        <Table data={selectedAccount.data} />
+      )}
     </div>
-   
-  )
+  );
 }
 
-export default Body
+export default Body;
